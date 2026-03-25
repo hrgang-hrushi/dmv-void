@@ -1,0 +1,5 @@
+{
+  "name": "DMV Appointment Finder",
+  "description": "Find DMV appointments near you in real-time. Search by zip code or use your current location.",
+  "requestFramePermissions": ["geolocation"]
+}
