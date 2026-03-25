@@ -44,6 +44,7 @@ import {
   ResponsiveContainer 
 } from 'recharts';
 import { findNearbyDMVs, DMVLocation } from './services/geminiService';
+import { Analytics } from '@vercel/analytics/react';
 
 const waitTimeData = [
   { time: '08:00', wait: 15 },
@@ -1297,6 +1298,7 @@ export default function App() {
           </div>
         )}
       </AnimatePresence>
+      <Analytics />
     </div>
   );
 }
