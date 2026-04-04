@@ -1,0 +1,5 @@
+{
+  "name": "DMV Void",
+  "description": "DMV Void: Real-time appointment monitoring and tactical data analysis for DMV services.",
+  "requestFramePermissions": ["geolocation"]
+}

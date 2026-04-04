@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=JetBrains+Mono:wght@100..800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Geist", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-void: #000000;
+  --color-rose-primary: #e11d48;
+  --color-rose-glow: rgba(225, 29, 72, 0.15);
+  --color-rose-muted: rgba(225, 29, 72, 0.05);
+  
+  --radius-xl: 16px;
+  --radius-2xl: 16px;
+  --radius-3xl: 16px;
+  --radius-lg: 16px;
+}
+
+@layer base {
+  body {
+    @apply bg-void text-zinc-400 antialiased selection:bg-rose-primary selection:text-white;
+    background-image: 
+      radial-gradient(circle at 50% -20%, rgba(225, 29, 72, 0.12) 0%, transparent 50%),
+      radial-gradient(circle at 100% 100%, rgba(39, 39, 42, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 0% 0%, rgba(225, 29, 72, 0.03) 0%, transparent 30%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-blend-mode: overlay;
+  }
+
+  h1, h2, h3, h4 {
+    @apply text-white tracking-tighter font-medium;
+  }
+
+  input, select {
+    @apply bg-white/[0.02] border border-white/[0.06] rounded-xl p-3.5 text-white placeholder:text-zinc-700 focus:outline-none focus:border-rose-primary/40 focus:ring-1 focus:ring-rose-primary/10 transition-all duration-300;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.02);
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/[0.01] backdrop-blur-2xl border border-white/[0.05] rounded-2xl transition-all duration-700 relative overflow-hidden;
+    box-shadow: 
+      inset 0 0 0 1px rgba(255, 255, 255, 0.02),
+      0 10px 30px -10px rgba(0, 0, 0, 0.5),
+      0 0 25px rgba(255, 255, 255, 0.05);
+  }
+  
+  .glass-card::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 transition-opacity duration-700 pointer-events-none;
+  }
+
+  .glass-card:hover {
+    @apply border-white/[0.1] shadow-[0_0_50px_rgba(0,0,0,0.6)];
+    box-shadow: 
+      inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+      0 20px 40px -10px rgba(0, 0, 0, 0.6),
+      0 0 30px rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-card:hover::before {
+    @apply opacity-100;
+  }
+
+  .rose-glow {
+    @apply shadow-[0_0_30px_var(--color-rose-glow)];
+  }
+
+  .btn-primary {
+    @apply bg-rose-primary hover:bg-rose-600 text-white p-3.5 rounded-xl font-bold transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2 relative overflow-hidden;
+    box-shadow: 0 0 20px rgba(225, 29, 72, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 0 40px rgba(225, 29, 72, 0.7);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .btn-secondary {
+    @apply bg-white/[0.03] hover:bg-white/[0.06] text-white p-3.5 rounded-xl font-bold transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2 border border-white/[0.05] backdrop-blur-md;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.02);
+  }
+
+  .spotlight {
+    @apply absolute pointer-events-none inset-0 z-0 transition-opacity duration-500 opacity-0;
+    background: radial-gradient(600px circle at var(--x) var(--y), rgba(225, 29, 72, 0.05), transparent 40%);
+  }
+
+  .glass-card:hover .spotlight {
+    @apply opacity-100;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.scan-line {
+  @apply absolute w-full h-[2px] bg-rose-primary/20 blur-[1px] z-20 pointer-events-none;
+  animation: scan 4s linear infinite;
+}
